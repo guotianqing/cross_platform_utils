@@ -9,6 +9,7 @@
 #include <sys/syscall.h>   /* For SYS_xxx definitions */
 #endif
 
+#include <chrono>
 #include <boost/shared_ptr.hpp>
 
 using std::string;
@@ -56,4 +57,10 @@ bool CrossPlatformUtils::IsProcessRunning(const std::string& process)
 	string cmdline = "pidof -x " + process + " > /dev/null";
 	return (system(cmdline.c_str()) == 0);
 #endif // TARGET_PLATFORM_WINDOWS
+}
+
+int64_t CrossPlatformUtils::GetLocalTimeStamp()
+{
+	// 根据需要调整时间精度，这里是us
+	return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 }

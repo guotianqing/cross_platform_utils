@@ -1,6 +1,7 @@
 #ifndef _CROSS_PLATFORM_UTILS_
 #define _CROSS_PLATFORM_UTILS_
 
+#include <cstring>
 #include <string>
 
 #if defined _WIN32 || defined _WIN64
@@ -23,7 +24,7 @@ public:
 	 */
 	static long GetTid();
 	static bool IsProcessRunning(const std::string& process);
-
+	static int64_t GetLocalTimeStamp();
 };
 
 #endif // !_LOG_UTIL_H_
