@@ -47,8 +47,7 @@ public:
 
 	/*
 	 */
-	template<typename T = std::int64_t>
-	static auto GetRandomNumber(const T& min, const T& max) -> decltype(min);
+	static int GetRandomNumber(const int min, const int max);
 };
 
 #endif // !_CROSS_PLATFORM_UTILS_

@@ -80,11 +80,10 @@ std::vector<std::string> CrossPlatformUtils::SplitString(const std::string& s, c
 	return tokens;
 }
 
-template<typename T>
-auto CrossPlatformUtils::GetRandomNumber(const T& min, const T& max) -> decltype(min)
+int CrossPlatformUtils::GetRandomNumber(const int min, const int max)
 {
 	std::random_device rd;
 	std::default_random_engine eng(rd());
-	std::uniform_int_distribution<int> distr(static_cast<int>(min), static_cast<int>(max));
+	std::uniform_int_distribution<int> distr(min, max);
 	return distr(eng);
 }

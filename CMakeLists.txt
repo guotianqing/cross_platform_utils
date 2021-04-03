@@ -1,5 +1,5 @@
 # 指定最低版本
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
 # 指定项目名称
 project(CrossPlatformUtils)
@@ -10,6 +10,7 @@ project(CrossPlatformUtils)
 # 指定为C++11 版本
 set(CMAKE_CXX_STANDARD 11)
 # set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 if (MSVC)
     # warning level 4 and all warnings as errors
