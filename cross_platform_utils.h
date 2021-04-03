@@ -3,6 +3,7 @@
 
 #include <cstring>
 #include <string>
+#include <vector>
 
 #if defined _WIN32 || defined _WIN64
 #define FILE_SEP "\\"
@@ -36,6 +37,18 @@ public:
 	 * 可用来记录到日志，分析业务逻辑的时延
 	 */
 	static int64_t GetLocalTimeStamp();
+
+	/*
+	 * 根据指定的分割符分割字符串
+	 * 默认分割符为空格
+	 * 返回分割后的结果
+	 */
+	static std::vector<std::string> SplitString(const std::string& s, char delimiter = ' ');
+
+	/*
+	 */
+	template<typename T = std::int64_t>
+	static auto GetRandomNumber(const T& min, const T& max) -> decltype(min);
 };
 
 #endif // !_CROSS_PLATFORM_UTILS_

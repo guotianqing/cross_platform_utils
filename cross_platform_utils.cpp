@@ -10,7 +10,9 @@
 #endif
 
 #include <chrono>
-#include <boost/shared_ptr.hpp>
+#include <sstream>
+#include <memory>
+#include <random>
 
 using std::string;
 
@@ -36,7 +38,7 @@ bool CrossPlatformUtils::IsProcessRunning(const std::string& process)
 			do
 			{
 				const size_t size = strlen(processEntry32.szExeFile) + 1;
-				boost::shared_ptr<wchar_t[]> wa(new wchar_t[size]);
+				std::shared_ptr<wchar_t[]> wa(new wchar_t[size]);
 				mbstowcs(wa.get(), processEntry32.szExeFile, size);
 
 				int iLen = 2 * wcslen(wa.get());
@@ -63,4 +65,26 @@ int64_t CrossPlatformUtils::GetLocalTimeStamp()
 {
 	// 根据需要调整时间精度，这里是us
 	return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+}
+
+std::vector<std::string> CrossPlatformUtils::SplitString(const std::string& s, char delimiter)
+{
+	std::vector<std::string> tokens;
+	tokens.reserve(s.length() / 2 + 1);
+   	std::string token;
+   	std::istringstream tokenStream(s);
+	while (std::getline(tokenStream, token, delimiter)) {
+		tokens.push_back(token);
+	}
+
+	return tokens;
+}
+
+template<typename T>
+auto CrossPlatformUtils::GetRandomNumber(const T& min, const T& max) -> decltype(min)
+{
+	std::random_device rd;
+	std::default_random_engine eng(rd());
+	std::uniform_int_distribution<int> distr(static_cast<int>(min), static_cast<int>(max));
+	return distr(eng);
 }
