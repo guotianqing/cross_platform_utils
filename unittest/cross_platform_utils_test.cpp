@@ -1,8 +1,10 @@
 #include <gtest/gtest.h>
 #include "cross_platform_utils.h"
+#include "time_span_stats.h"
 
 #include <string>
 #include <vector>
+#include <thread>
 
 using std::string;
 using std::vector;
@@ -46,4 +48,17 @@ TEST(get_random_number_test, unix)
     EXPECT_GE(CrossPlatformUtils::GetRandomNumber(0, 10), 0);
     EXPECT_LE(CrossPlatformUtils::GetRandomNumber(0, 10), 10);
     EXPECT_LT(CrossPlatformUtils::GetRandomNumber(0.0, 10.0), 11);
+}
+
+TEST(time_span_stats_deconstruct, unix)
+{
+    TimeSpanStats time_span_stats("unittest", 1);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+}
+
+TEST(time_span_stats_point, unix)
+{
+    TimeSpanStats time_span_stats("unittest", 1);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    EXPECT_GT(time_span_stats.GetTimeSpanUs(), 1000);
 }
