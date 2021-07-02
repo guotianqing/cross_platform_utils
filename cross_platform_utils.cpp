@@ -4,9 +4,12 @@
 #include <windows.h>
 #include <processthreadsapi.h>
 #include <tlhelp32.h>
+#define stat _stat
 #else
 #include <unistd.h>
 #include <sys/syscall.h>   /* For SYS_xxx definitions */
+#include <sys/types.h>
+#include <sys/stat.h>
 #endif
 
 #include <chrono>
@@ -86,4 +89,15 @@ int CrossPlatformUtils::GetRandomNumber(const int min, const int max)
 	std::default_random_engine eng(rd());
 	std::uniform_int_distribution<int> distr(min, max);
 	return distr(eng);
+}
+
+std::string CrossPlatformUtils::GetFileLastModTime(const std::string& filename)
+{
+	char last_time[100] = "";
+	struct stat result;
+	if (stat(filename.c_str(), &result) == 0) {
+        strftime(last_time, sizeof(last_time), "%H%M%S", localtime(&result.st_mtime));
+    }
+    
+	return last_time;
 }

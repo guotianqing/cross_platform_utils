@@ -15,3 +15,4 @@ cross platform linux &amp; windows c++ utils class
 - 增加了生成随机数接口
 - 增加cmake构建，同时生成动态库和静态库
 - 增加了unittest，使用gtest
+- 增加GetFileLastModTime，获取指定文件的最新时间

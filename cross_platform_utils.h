@@ -48,6 +48,13 @@ public:
 	/*
 	 */
 	static int GetRandomNumber(const int min, const int max);
+
+	/*
+	* 获取文件最后更新时间
+	* param: filename with path
+	* return: if succ, return HHMMSS, else return ""
+	*/
+	static std::string GetFileLastModTime(const std::string& filename);
 };
 
 #endif // !_CROSS_PLATFORM_UTILS_

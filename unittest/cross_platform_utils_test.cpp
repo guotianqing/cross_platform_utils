@@ -62,3 +62,9 @@ TEST(time_span_stats_point, unix)
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
     EXPECT_GT(time_span_stats.GetTimeSpanUs(), 1000);
 }
+
+TEST(GetFileLastModTime, unix)
+{
+    ASSERT_GT(CrossPlatformUtils::GetFileLastModTime("test").size(), 0);
+    std::cout << CrossPlatformUtils::GetFileLastModTime("test") << std::endl;
+}
