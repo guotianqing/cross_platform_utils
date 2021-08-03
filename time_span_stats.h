@@ -7,11 +7,13 @@
 
 using namespace std::chrono;
 using std::string;
+using std::ostream;
 
 class TimeSpanStats
 {
 public:
-    TimeSpanStats(const string& msg, const int32_t threshold): msg_(msg), threshold_(threshold) {
+    TimeSpanStats(const int32_t threshold, ostream& os): 
+        threshold_(threshold), os_(os) {
         t_start_ = high_resolution_clock::now();
     }
     ~TimeSpanStats() {
@@ -19,7 +21,7 @@ public:
         duration<double, std::micro> time_span = t_end_ - t_start_;
         int ts = time_span.count();
         if (ts >= threshold_) {
-            std::cout << msg_ << "|tooks|" << std::fixed << time_span.count() << "|us" << std::endl;
+            os_ << "|tooks|" << std::fixed << time_span.count() << "|us" << std::endl;
         }
     }
 
@@ -28,11 +30,11 @@ public:
         duration<double, std::micro> time_span = t_end_ - t_start_;
         return time_span.count();
     }
-    
+
 private:
-    string msg_;
     int32_t threshold_;
     high_resolution_clock::time_point t_start_;
+    ostream& os_;
 };
 
 #endif
